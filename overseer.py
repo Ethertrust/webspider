@@ -1,7 +1,9 @@
 
 from subprocess import check_output
 
-scriptname = "example.py"
+scriptname = "booking.py"
 outputfilename = "example1.json"
-check_output("cd C:\\Users\\egosh\\PycharmProjects\\webscraper", shell=True).decode()
+directory = "egosh\\PycharmProjects\\webscraper"
+directory2 = "shvedov_es\\PycharmProjects\\webspider"
+check_output("cd C:\\Users\\{}".format(directory2), shell=True).decode()
 check_output("scrapy runspider {} -o {}".format(scriptname, outputfilename), shell=True).decode()
