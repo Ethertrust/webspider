@@ -14,12 +14,18 @@ class QuotesSpider(scrapy.Spider):
         })
 
     def parse(self, response):
-        list = []
-        for quote in response.css('span'):
-            print(quote)
-            yield {
-                'title': quote.css('span.text::text').extract_first(),
-            }
+        page = response.url.split("/")[-2]
+        filename = 'quotes-%s.html' % page
+        with open(filename, 'wb') as f:
+            f.write(response.body)
+        self.log('Saved file %s' % filename)
+
+    # def parse(self, response):
+    #     list = []
+    #     for quote in response.css('i.b-sprite stars ratings_stars_4  star_track'):
+    #         yield {
+    #             'title': quote.css('span.invisible_spoken::text').extract_first(),
+    #         }
 
         # next_page = response.css('li.next a::attr(href)').extract_first()
         # if next_page is not None:

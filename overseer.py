@@ -1,7 +1,7 @@
 
 from subprocess import check_output
 
-scriptname = "booking.py"
+scriptname = "PlayGround.py"
 outputfilename = "example1.json"
 directory = "egosh\\PycharmProjects\\webscraper"
 directory2 = "shvedov_es\\PycharmProjects\\webspider"
