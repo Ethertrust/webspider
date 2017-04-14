@@ -3,7 +3,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.contrib.loader.processor import TakeFirst
 from scrapy.contrib.loader import XPathItemLoader
 from scrapy.selector import HtmlXPathSelector
-
+from scrapy import FormRequest
 from scrapy.item import Item, Field
 
 
@@ -30,7 +30,13 @@ class PlayGroundSpider(CrawlSpider):
         hxs = HtmlXPathSelector(response)
         l = PlayGroundLoader(PlayGroundItem(), hxs)
         l.add_value('url', response.url)
-        l.add_xpath('title', "//div[@class='article-header']/h1/text()".encode('utf-8'))
-        l.add_xpath('download_url', "//div[@class='download-links-set']/div/a/@href")
-
+        l.add_xpath('title', "//div[@class='article-header']/h1/text()")
+        l.add_xpath('download_url', "//div[@class='download-links-set']/input[@name='download_url']/@value")
+        # if hxs.xpath("//div[@class='download-links-set']/input[@name='download_url']/@value"):
+        #     formdata = {
+        #         hxs.xpath("//div[@class='download-links-set']/input[@name='mode']/@name"): hxs.xpath("//div[@class='download-links-set']/input[@name='mode']/@value"),
+        #         hxs.xpath("//div[@class='download-links-set']/input[@name='download_url']/@name"): hxs.xpath(
+        #             "//div[@class='download-links-set']/input[@name='download_url']/@value")
+        #     }
+        #     yield FormRequest(url=l['download_url'], formdata=formdata, callback=self.parse)
         return l.load_item()

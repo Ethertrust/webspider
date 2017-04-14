@@ -13,8 +13,10 @@ BOT_NAME = 'webscraper'
 
 SPIDER_MODULES = ['webscraper.spiders']
 NEWSPIDER_MODULE = 'webscraper.spiders'
-
-
+FEED_EXPORT_ENCODING = 'utf-8'
+ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1, 'scrapy.pipelines.files.FilesPipeline': 1}
+FILES_STORE = 'C:\\Users\\shvedov_es\\PycharmProjects\\webspider\\storage'
+IMAGES_STORE = 'C:\\Users\\shvedov_es\\PycharmProjects\\webspider\\storage'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'webscraper (+http://www.yourdomain.com)'
 
