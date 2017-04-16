@@ -5,6 +5,7 @@ from scrapy.contrib.loader import XPathItemLoader
 from scrapy.selector import HtmlXPathSelector
 from scrapy import FormRequest
 from scrapy.item import Item, Field
+import scrapy
 
 
 class PlayGroundItem(Item):
@@ -17,16 +18,17 @@ class PlayGroundLoader(XPathItemLoader):
     default_output_processor = TakeFirst()
 
 
-class PlayGroundSpider(CrawlSpider):
+class PlayGroundSpider(scrapy.Spider):
     name = "playground_spider"
-    allowed_domains = ["www.playground.ru"]
-    start_urls = ["http://www.playground.ru/files/stalker_clear_sky/"]
-    rules = (
-        Rule(LinkExtractor(allow=('/files/s_t_a_l_k_e_r_chistoe_nebo')), follow=True, callback='parse_item'),
-    )
+    allowed_domains = ["http://www.playground.ru/files/stalker_clear_sky/"]
+    # start_urls = ["http://www.playground.ru/files/stalker_clear_sky/"]
 
+    def start_requests(self):
+        return [FormRequest("http://www.playground.ru/files/stalker_clear_sky/",
+                            formdata={'mode': 'wait', 'download_url': 'http://www.playground.ru/download/?file=147583&mirror=&from=http'},
+                            callback=self.parse)]
 
-    def parse_item(self, response):
+    def parse(self, response):
         hxs = HtmlXPathSelector(response)
         l = PlayGroundLoader(PlayGroundItem(), hxs)
         l.add_value('url', response.url)

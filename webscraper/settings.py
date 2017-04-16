@@ -15,8 +15,8 @@ SPIDER_MODULES = ['webscraper.spiders']
 NEWSPIDER_MODULE = 'webscraper.spiders'
 FEED_EXPORT_ENCODING = 'utf-8'
 ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1, 'scrapy.pipelines.files.FilesPipeline': 1}
-FILES_STORE = 'C:\\Users\\shvedov_es\\PycharmProjects\\webspider\\storage'
-IMAGES_STORE = 'C:\\Users\\shvedov_es\\PycharmProjects\\webspider\\storage'
+FILES_STORE = 'C:\\storage'
+IMAGES_STORE = 'C:\\storage'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'webscraper (+http://www.yourdomain.com)'
 
@@ -66,10 +66,11 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
+# ITEM_PIPELINES = ['playground_spider.pipelines.JsonWithEncodingPipeline']
 #ITEM_PIPELINES = {
 #    'webscraper.pipelines.WebscraperPipeline': 300,
 #}
-
+FEED_EXPORT_ENCODING = 'utf-8'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
