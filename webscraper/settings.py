@@ -9,6 +9,11 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
+LOG_ENABLED = True
+# LOG_FILE = "scrlog.txt"
+# LOG_ENCODING = "UTF-8"
+LOG_LEVEL = "INFO"
+
 BOT_NAME = 'webscraper'
 
 SPIDER_MODULES = ['webscraper.spiders']
