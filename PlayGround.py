@@ -24,26 +24,33 @@ class PlayGroundSpider(scrapy.Spider):
 
     # allowed_domains = ["http://www.playground.ru", "https://auth.playground.info/ru/login"]
     start_urls = [
-        "http://www.playground.ru"
+        "https://auth.playground.info/ru/login"
     ]
 
     def start_requests(self):
-        return [Request(url="http://www.playground.ru", callback=self.login)]
+        return [Request(url="https://auth.playground.info/ru/login", callback=self.login, dont_filter=True)]
 
     def login(self, response):
         logging.error("1: ")
-        logging.error(response.body)
-        return scrapy.FormRequest('https://auth.playground.info/ru/login',
-                                  headers={"X-Requested-With": "XMLHttpRequest"},
-                                  formdata={'_name': 'Ethertrust', '_password': 'STARWARS1',
-                                            '_csrf_token': response.xpath(
-                                                "//input[@name='_csrf_token']/@value").extract_first()},
+        logging.error(response.body.decode("utf-8").encode('cp1251'))
+        urlname = response.url.replace("/", ".") + '.php'
+        urlname = urlname.replace(":", "")
+        f = open(urlname, 'w', encoding='utf-8')
+        f.write(response.body.decode("utf-8").encode('cp1251').decode('cp1251'))
+        return scrapy.FormRequest.from_response(response,
+                                  headers={"Content-Type": "application/x-www-form-urlencoded"},
+                                  formdata={'_name': 'Ethertrust', '_password': 'STARWARS1'},
                                   callback=self.parse, dont_filter=True)
 
     def parse(self, response):
         logging.error("2: ")
-        logging.error(response.body)
+        logging.error(response.body.decode("utf-8").encode('cp1251'))
+        urlname = response.url.replace("/", ".") + '.php'
+        urlname = urlname.replace(":", "")
+        f = open(urlname, 'w', encoding='utf-8')
+        f.write(response.body.decode("utf-8").encode('cp1251').decode('cp1251'))
         if "Goutam" in response.body:
             print("Successfully logged in. Let's start crawling!")
         else:
             print("Login unsuccessful")
+        return response.body.decode("cp1251").encode('cp1251')

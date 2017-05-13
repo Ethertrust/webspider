@@ -12,7 +12,7 @@
 LOG_ENABLED = True
 # LOG_FILE = "scrlog.txt"
 # LOG_ENCODING = "UTF-8"
-LOG_LEVEL = "INFO"
+LOG_LEVEL = "DEBUG"
 
 BOT_NAME = 'webscraper'
 
@@ -26,7 +26,7 @@ IMAGES_STORE = 'C:\\storage'
 #USER_AGENT = 'webscraper (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY=False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
